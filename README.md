@@ -6,7 +6,7 @@ This repository contains an **Applicant Tracking System (ATS)** designed for HR 
 
 ---
 
-🚀 Key Enhancements
+# 🚀 Key Enhancements
 Feature	Description
 🤖 AI Integration	Leverages Google Gemini Chat to perform intelligent and context-aware resume scoring based on the job description.
 🔁 Dual-Loop Efficiency	Two-phase looping mechanism: one for downloading all files and another for refining scoring with contextual feedback.
