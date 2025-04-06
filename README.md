@@ -6,18 +6,29 @@ This repository contains an **Applicant Tracking System (ATS)** designed for HR 
 
 ---
 
+🚀 Key Enhancements
+Feature	Description
+🤖 AI Integration	Leverages Google Gemini Chat to perform intelligent and context-aware resume scoring based on the job description.
+🔁 Dual-Loop Efficiency	Two-phase looping mechanism: one for downloading all files and another for refining scoring with contextual feedback.
+📊 Dynamic Scoring	Uses multiple Code nodes for progressive scoring logic, enriched with Gemini Chat for enhanced ranking.
+🧠 Smart Merging	Applies contextual filters before merging resumes, ensuring only relevant files are included in the output.
+⚡ Real-Time Processing	Extracts text, formats data, and applies scoring logic in real-time as files are streamed from Google Drive.
+🚀 Optimized Flow	Conditional branches and routing streamline processing paths for PDFs, HTML, or text files dynamically.
+🛡️ Robustness	Implements parallel execution and error-handling nodes for stable processing, even with corrupted or unsupported files.
+📦 Output Excellence	Responses are tailored and compressed, reducing size while preserving ranking insights and metadata.
+
+---
+
 ## 🚀 Overview
 
 - **Front-End**: A Streamlit application (`app.py`) allows HR managers to input job descriptions (Text, HTML, or PDF) and select a job category, triggering the ATS workflow via a webhook.
+<img width="1470" alt="Screenshot 2025-04-06 at 5 16 49 PM" src="https://github.com/user-attachments/assets/84e813fc-8261-4dd1-bf1e-34187d89ec49" />
+
 - **Back-End**: An n8n workflow retrieves resumes from Google Drive, applies cutting-edge ranking algorithms, and returns detailed results, optimized for scalability and accuracy:
-One standout innovation is the "Google Gemini Chat" node, integrating AI-powered scoring into the ATS process. This node likely uses Google’s generative AI for NLP, analyzing resume text and job descriptions to assess context and relevance beyond simple keywords. This enhances scoring accuracy and could generate interview questions, setting your workflow apart as a modern HR tool.
-The dual-loop architecture, with two "Loop Over Items" nodes, is another creative feature. The first loop downloads all 50+ PDFs, fixing the 1-PDF issue, while the second refines scores post-merge, addressing the 10-PDF limit. This two-phase strategy ensures comprehensive processing and adaptability for large datasets.
-The use of multiple "Code" nodes before and after "Merge" introduces a dynamic scoring system. The first node might handle initial keyword matching, while the second refines scores with AI insights, creating a hybrid model. This flexibility adapts to diverse job descriptions and supports future enhancements.
-The "Merge" node, enhanced by "Switch" and "Code" nodes, offers a smart aggregation technique. The "Switch" filters low-scoring resumes, and the "Code" optimizes the merge, resolving the 10-PDF limit. This “smart merge” prioritizes top candidates, improving HR efficiency.
-The "Google Gemini Chat" node enables real-time text extraction and scoring from PDF binaries. It parses content on-the-fly, aligning it with the job description, eliminating manual extraction. This scalable AI integration handles unstructured data, adding a unique efficiency to the workflow.
-The "Switch" and "Replace" nodes optimize data flow management. "Switch" routes data based on score thresholds, while "Replace" standardizes or enriches it, adapting to 50+ PDFs. This self-regulating design enhances robustness and flexibility for large-scale use.
-Parallel processing and error handling, implied by the structure and "Switch" nodes, boost resilience. Parallel execution speeds up 50+ PDF processing, while "Switch" offers fallback paths for errors. This proactive design ensures reliability for enterprise-level deployments.
-The final "Merge," "Edit Fields," and "Respond to Webhook" nodes optimize output. "Edit Fields" formats the ranked list (e.g., rank, totalScore) for Streamlit, ensuring efficiency. This presentation intelligence enhances user experience, making it a thoughtful innovation.
+ beyond simple keywords. This enhances scoring accuracy and could generate interview questions, setting your workflow apart as a modern HR tool.
+<img width="1265" alt="Screenshot 2025-04-06 at 5 13 56 PM" src="https://github.com/user-attachments/assets/768c2f1f-dbe6-490d-a1ba-f913e2e1e1ed" />
+
+
 - **Goal**: Screen and rank data from a specified Google Drive folder and after process through AI agents give result in terms of score and rank of person.
 
 ---
