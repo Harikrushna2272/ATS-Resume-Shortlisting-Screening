@@ -1,0 +1,787 @@
+{
+  "name": "Demo: My first AI Agent in n8n",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "1",
+      "typeVersion": 1,
+      "position": [
+        1060,
+        -1220
+      ],
+      "id": "0810f83c-35c6-483b-b85a-8311bfad813d"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ats-trigger",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        100,
+        -1220
+      ],
+      "id": "a8f5cb51-8755-4799-b305-bb7cb43ea232",
+      "name": "Webhook",
+      "webhookId": "0bc9b110-d829-40dd-9f2d-5915722bf955"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.id }} is not empty",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "63e0c4bf-22b7-406b-bd8a-19e0ac554889"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        520,
+        -1220
+      ],
+      "id": "2e2a5e46-b990-4431-a8a8-e4db9cbcfcf2",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "numberInputs": 10
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1620,
+        -1220
+      ],
+      "id": "603a34e6-64a6-4c58-8da6-8910f16ab09b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "ad009635-8fa7-40d3-99f4-3a123c7592d6"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1920,
+        -1220
+      ],
+      "id": "959d9540-78df-433a-acd1-ef439b04c801",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2620,
+        -1220
+      ],
+      "id": "eeab4baa-efcb-4b27-bedd-cc7405b7eabf",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const jobDesc = $input.first().json.jobDescription.toLowerCase().trim().replace(/\\s+/g, ' ');\nconst resumes = $input.all().map(item => ({\n  filename: item.json.filename,\n  text: (item.json.text || '').toLowerCase().trim().replace(/\\s+/g, ' ')\n})).filter(item => item.text); // Remove empty texts\nreturn [{ json: { jobDesc, resumes } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2800,
+        -1220
+      ],
+      "id": "a459cb2b-f162-4cba-adc2-6c2d010c8785",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        3080,
+        -1220
+      ],
+      "id": "c933e7a4-092d-4a1b-aa2a-31a8157d5b5d",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        3300,
+        -1220
+      ],
+      "id": "0093b313-3eca-4cee-a5ea-962988173395"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6e30712d-6af5-4e76-89d7-6fcc1484d02f"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3540,
+        -1220
+      ],
+      "id": "f3550b3f-4005-4d92-b392-747e9c7578c5",
+      "name": "Switch2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        4140,
+        -1200
+      ],
+      "id": "e80ab37c-04b1-47d5-8f3b-76c045ed04a9",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Job description: \"{{ $json.jobDesc }}\"\nResume: \"{{ $item(0).json.text }}\"\nExtract skills, experience, and keywords from both. Score relevance (0-100) with breakdown:\n- skills (0-40)\n- experience (0-40)\n- other (0-20)\nReturn JSON: { \"totalScore\": number, \"breakdown\": { \"skills\": number, \"experience\": number, \"other\": number } }",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        3740,
+        -1220
+      ],
+      "id": "233f9e60-81a7-44e5-aead-3cbc5cb433fe",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const resumes = $input.all().map(item => item.json);\nconst ranked = resumes.sort((a, b) => b.totalScore - a.totalScore);\nreturn ranked.map((item, index) => ({ json: { ...item, rank: index + 1 } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4320,
+        -1200
+      ],
+      "id": "3d41ce74-6018-4029-a0e4-83b36b33bd2c",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        4540,
+        -960
+      ],
+      "id": "48e705d7-cd25-4ad6-9d71-33b6e806b715",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        580,
+        -120
+      ],
+      "id": "11781b5a-9e2f-42c1-9fc9-b5c3ce680fd8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3660,
+        -920
+      ],
+      "id": "afdbc353-1be3-4039-9461-2f1107169340",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "933e4baa-9853-42ba-92af-3ec62fe9c615",
+              "name": "error",
+              "value": "No files found in folder",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        860,
+        -940
+      ],
+      "id": "cbe3e8a0-0e57-4043-891e-a494fa732f6c",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        820,
+        -1220
+      ],
+      "id": "cb531e86-2f49-42fb-aa1c-dc8f1cc6b3ac",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Unable to fetch data from drive",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1100,
+        -940
+      ],
+      "id": "2f783f24-fc3c-495e-aa96-6cad90a83d33",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fe1ae0d4-314a-4e42-845e-399a5b9a62c5",
+      "name": "Google Drive2",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "i7GvY1pil3rnof6v",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        3780,
+        -1040
+      ],
+      "id": "11bb6c89-2dd0-4cb4-81f8-7f3389a0e169",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "VQVsIw1slBsqLJKN",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Webhook').item.json.body.folderId }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1340,
+        -1300
+      ],
+      "id": "b07c0309-0c52-4da2-8391-66b606b48c6d",
+      "name": "Google Drive Download List",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "i7GvY1pil3rnof6v",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "={{ $json.body.folderId }}",
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        320,
+        -1220
+      ],
+      "id": "cdc2f796-2314-4194-a0be-c5cbd577715e",
+      "name": "Google Drive List",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "i7GvY1pil3rnof6v",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({\n  json: { filename: item.json.filename, text: item.binary.data.toString('utf8') }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2280,
+        -1220
+      ],
+      "id": "a7ca81ed-1a0a-4e4b-8ad5-51572352609e",
+      "name": "Code_TXT"
+    },
+    {
+      "parameters": {
+        "jsCode": "const pdfjsLib = require('pdfjs-dist');\nconst items = $input.all();\nconst results = [];\nfor (const item of items) {\n  try {\n    const pdfData = item.binary.data.buffer;\n    const doc = await pdfjsLib.getDocument({ data: pdfData }).promise;\n    let text = '';\n    for (let i = 1; i <= doc.numPages; i++) {\n      const page = await doc.getPage(i);\n      text += await page.getTextContent().then(c => c.items.map(item => item.str).join(' '));\n    }\n    results.push({ json: { filename: item.json.filename, text } });\n  } catch (e) {\n    results.push({ json: { filename: item.json.filename, text: '', error: e.message } });\n  }\n}\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2280,
+        -1380
+      ],
+      "id": "21fff938-2682-4083-8104-63f031dbd0fc",
+      "name": "Code_PDF"
+    },
+    {
+      "parameters": {
+        "jsCode": "const cheerio = require('cheerio');\nreturn $input.all().map(item => {\n  const html = item.binary.data.toString('utf8');\n  const $ = cheerio.load(html);\n  return { json: { filename: item.json.filename, text: $('body').text().trim() } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2280,
+        -1060
+      ],
+      "id": "2cb92893-d445-4f4c-a621-f034cbd94e5d",
+      "name": "Code_HTML",
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Drive List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Code_PDF",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code_TXT",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code_HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Google Drive Download List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook2": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive Download List": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive List": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_TXT": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code_PDF": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_HTML": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4cf8b3ef-f285-4d97-8a75-19e149af4309",
+  "meta": {
+    "templateId": "PT1i+zU92Ii5O2XCObkhfHJR5h9rNJTpiCIkYJk9jHU=",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "55efeff61245f95278f9e052f6a3f2124d0686c420cb05dad716a67ceaef125c"
+  },
+  "id": "hL8CXMoHtOehOdCZ",
+  "tags": []
+}
